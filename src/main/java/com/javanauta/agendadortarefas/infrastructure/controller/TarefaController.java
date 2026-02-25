@@ -18,7 +18,7 @@ public class TarefaController {
 
     private final TarefaService tarefaService;
 
-    // 🔹 Cadastro unitário (continua igual)
+    // 🔹 Cadastro unitário
     @PostMapping
     public ResponseEntity<TarefasDTO> salvarTarefas(
             @RequestHeader("Authorization") String token,
@@ -41,8 +41,8 @@ public class TarefaController {
     //Método GET para periodo de data (eventos)
     @GetMapping("/eventos")
     public ResponseEntity<List<TarefasDTO>> buscaListaDeTarefasPorPeriodo(
-            @RequestParam @DateTimeFormat(iso =  DateTimeFormat.ISO.DATE_TIME)LocalDateTime dataInicial,
-            @RequestParam @DateTimeFormat(iso =  DateTimeFormat.ISO.DATE_TIME)LocalDateTime dataFinal){
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dataInicial,
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dataFinal) {
 
         return ResponseEntity.ok(tarefaService.buscarTarefasAgendadasPorPeriodo(dataInicial, dataFinal));
     }
@@ -50,14 +50,14 @@ public class TarefaController {
     //Método GET por email de usuario
     @GetMapping
     public ResponseEntity<List<TarefasDTO>> buscaListaDeTarefasPorEmail(
-            @RequestHeader("Authorization") String token){
+            @RequestHeader("Authorization") String token) {
 
         return ResponseEntity.ok(tarefaService.buscarTarefasPorEmail(token));
     }
 
     //método para deletar DELETE tarefa por id
     @DeleteMapping
-    public ResponseEntity<Void> deletarTarefaPorId(@RequestParam("id") String id){
+    public ResponseEntity<Void> deletarTarefaPorId(@RequestParam("id") String id) {
         tarefaService.deletarTarefaPorId(id);
         return ResponseEntity.ok().build();
     }
@@ -65,14 +65,14 @@ public class TarefaController {
     //método para alterar status PATCH da tarefa por id
     @PatchMapping
     public ResponseEntity<TarefasDTO> alteraStatusNotificacao(@RequestParam("status") StatusNotificacaoEnum status,
-                                                              @RequestParam("id") String id){
+                                                              @RequestParam("id") String id) {
         return ResponseEntity.ok(tarefaService.alterarStatus(status, id));
     }
 
     //método de update de tarefas PUT por id
     @PutMapping
     public ResponseEntity<TarefasDTO> updateTarefas(@RequestBody TarefasDTO tarefasDTO,
-                                                    @RequestParam("id") String id){
+                                                    @RequestParam("id") String id) {
         return ResponseEntity.ok(tarefaService.updateTarefas(tarefasDTO, id));
     }
 
