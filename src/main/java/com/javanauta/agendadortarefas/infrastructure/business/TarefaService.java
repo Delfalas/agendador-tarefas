@@ -57,7 +57,8 @@ public class TarefaService {
 
     //método para buscar GET por periodo
     public List<TarefasDTO> buscarTarefasAgendadasPorPeriodo(LocalDateTime dataInicial, LocalDateTime dataFinal){
-        return tarefaConverter.paraListTarefasDTO(tarefasRepository.findByDataEventoBetween(dataInicial, dataFinal));
+        return tarefaConverter.paraListTarefasDTO(tarefasRepository.findByDataEventoBetweenAndStatusNotificacaoEnum(
+                dataInicial, dataFinal, StatusNotificacaoEnum.PENDENTE));
     }
 
     //método para buscar GET por email de usuario
