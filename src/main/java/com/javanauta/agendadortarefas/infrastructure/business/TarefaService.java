@@ -94,6 +94,7 @@ public class TarefaService {
             TarefasEntity entity = tarefasRepository.findById(id).
                     orElseThrow(() -> new ResourceNotFoundException("Tarefa não encontrada! " + id));
             tarefaUpdateConverter.updateTarefas(tarefasDTO, entity);
+            entity.setDataAlteracao(LocalDateTime.now()); // seta DataAlteração
             return tarefaConverter.paraTarefasDTO(tarefasRepository.save(entity));
         } catch (ResourceNotFoundException e) {
             throw new ResourceNotFoundException("Erro ao alterar status da tarefa! " + e.getCause());
